@@ -1,0 +1,45 @@
+# 微信中已知的URL scheme列表
+
+
+url | Description
+----|------------
+weixin://dl/groupchat | 发起群聊
+weixin://dl/add | 添加朋友
+weixin://dl/log | 上报日志
+weixin://dl/recommendation | 新的朋友
+weixin://dl/groups | 群聊
+weixin://dl/tags | 标签
+weixin://dl/officialaccounts | 公众号
+weixin://dl/moments | 朋友圈
+weixin://dl/scan | 扫一扫
+weixin://dl/shopping | 购物
+weixin://dl/games | 游戏
+weixin://dl/profile | 个人信息
+weixin://dl/setname | 名字
+weixin://dl/myQRcode | 我的二维码
+weixin://dl/myaddress | 我的地址
+weixin://dl/posts | 相册
+weixin://dl/favorites | 收藏
+weixin://dl/card | 优惠券
+weixin://dl/stickers | 表情
+weixin://dl/settings | 设置
+weixin://dl/bindqq | QQ号
+weixin://dl/bindmobile | 手机号
+weixin://dl/bindemail | 邮箱地址
+weixin://dl/protection | 账号保护
+weixin://dl/notifications | 新消息通知
+weixin://dl/blacklist | 通讯录黑名单
+weixin://dl/hidemoments | 不让他（她）看我的朋友圈
+weixin://dl/blockmoments | 不看他（她）的朋友圈
+weixin://dl/general | 通用
+weixin://dl/languages | 多语言
+weixin://dl/textsize | 字体大小
+weixin://dl/stickersetting | 我的表情
+weixin://dl/sight | 朋友圈小视频
+weixin://dl/features | 功能
+weixin://dl/securityassistant | 通讯录同步助手
+weixin://dl/broadcastmessage | 群发助手
+weixin://dl/chathistory | 聊天记录迁移
+weixin://dl/clear | 清理微信存储空间
+weixin://dl/help | 意见反馈
+weixin://dl/about | 关于微信

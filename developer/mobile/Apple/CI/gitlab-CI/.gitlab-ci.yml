@@ -1,0 +1,46 @@
+stages:
+ - archive
+ - export
+ - upload
+
+variables:
+ BUILD_CONF: 'Release'
+ BUILD_SCHEME: 'LYrecite'
+ PRODUCT_NAME: 'LYrecite'
+ PROJECT_NAME: 'LYrecite'
+ WORK_SPACE: 'LYrecite.xcworkspace'
+ TIME: ''
+ EXPORT_PLIST: ''
+ ARCHIVEPATH: ''
+ IPA: ''
+
+before_script:
+ - TIME=$(date +"%Y-%m-%d")
+ - ARCHIVE_PATH="$HOME/Developer/GitLab-ci/$PRODUCT_NAME/build/archives/$TIME/$PRODUCT_NAME.xcarchive"
+ - IPA="$HOME/Developer/GitLab-ci/$PRODUCT_NAME/build/products/$TIME"
+ - EXPORT_PLIST="$HOME/Developer/xcodebuild/gkbb_adhoc.plist"
+
+archive_project:
+ stage: archive
+ script:
+  - sed -i '' 's/ProvisioningStyle = Automatic;/ProvisioningStyle = Manual;/' $PROJECT_NAME.xcodeproj/project.pbxproj
+  - xcodebuild clean -configuration $BUILD_CONF
+#  - xcodebuild archive -scheme $BUILD_SCHEME -configuration $BUILD_CONF -archivePath $ARCHIVEPATH ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="$CODE_SIGN_ID" PROVISIONING_PROFILE_SPECIFIER="$CODE_SIGN_PROFILE" DEVELOPMENT_TEAM="$DEVELOP_TEAM"
+  - xcodebuild archive -workspace $WORK_SPACE -scheme $BUILD_SCHEME -configuration $BUILD_CONF -destination 'generic/platform=iOS,name=Generic iOS Device' -archivePath $ARCHIVE_PATH ONLY_ACTIVE_ARCH=NO CODE_SIGN_IDENTITY="$CODE_SIGN_ID" PROVISIONING_PROFILE_SPECIFIER="$CODE_SIGN_PROFILE" DEVELOPMENT_TEAM="$DEVELOP_TEAM"
+ only:
+  - develop
+
+export_ipa:
+ stage: export
+ script: 
+  - xcodebuild -exportArchive -archivePath "$ARCHIVE_PATH" -exportPath "$IPA" -exportOptionsPlist "$EXPORT_PLIST"
+ only:
+  - develop
+
+upload_pgyer:
+ stage: upload
+ script:
+  - COMMIT=`git log --pretty=format:"%s" -1`
+  - curl -F "file=@$IPA/$PRODUCT_NAME.ipa" -F "uKey=$PGY_UKEY" -F "_api_key=$PGY_API_KEY" -F "updateDescription=$COMMIT" $PGY_UPLOAD_URL
+ only:
+  - develop

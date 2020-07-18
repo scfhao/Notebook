@@ -1,0 +1,4 @@
+From:http://opensource.apple.com/source/Git/Git-26/src/git-htmldocs/howto/revert-a-faulty-merge.txt
+
+Alan<alan@clueserver.org> 说：
+我

@@ -1,0 +1,5 @@
+
+dependencies {
+	// Spring Security
+	compile("org.springframework.boot:spring-boot-starter-security")
+}

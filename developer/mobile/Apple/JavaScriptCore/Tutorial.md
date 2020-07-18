@@ -1,0 +1,15 @@
+JavaScriptCore包含几个主要的组件：JSVirtualMachine、JSContext和JSValue。
+
+## JSVirtualMachine
+
+JavaScript代码是在由JSVirtualMachine类表示的一个虚拟机上执行的。通常情况下你不需要直接与这个类交互，但有一种情况例外：并发执行JavaScript代码。在一个独立的JSVirtualMachine中，是不可能同一时间执行多个线程的。为了支持并行，你必须使用多个虚拟机。
+
+每一个JSVirtualMachine实例都有自己的堆和自己的垃圾回收器，这意味着你不能在虚拟机之间传递对象。一个虚拟机的垃圾收集器不知道如何去处理另一个堆上的值。
+
+## JSContext
+
+一个JSContext对象表示JavaScript代码的执行环境。它对应于一个单一的全局对象；它的web开发环境等同于一个窗口对象。不同于一个虚拟机，你可以在多个上下文之间传递对象(因为它们位于同一虚拟机)。
+
+## JSValue
+
+JSValue是我们需要处理的主要数据类型：它可以表示任何可能的Javascript值。一个JSValue被绑定到其存活的JSContext对象中。任何来源于上下文对象的值都是JSValue类型。

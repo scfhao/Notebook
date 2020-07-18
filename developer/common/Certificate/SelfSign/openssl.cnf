@@ -1,0 +1,49 @@
+[ req ]
+#default_bits		= 2048
+#default_md		= sha256
+#default_keyfile 	= privkey.pem
+distinguished_name	= req_distinguished_name
+attributes		= req_attributes
+
+[ req_distinguished_name ]
+countryName			= Country Name (2 letter code)
+countryName_min			= 2
+countryName_max			= 2
+stateOrProvinceName		= State or Province Name (full name)
+localityName			= Locality Name (eg, city)
+0.organizationName		= Organization Name (eg, company)
+organizationalUnitName		= Organizational Unit Name (eg, section)
+commonName			= Common Name (eg, fully qualified host name)
+commonName_max			= 64
+emailAddress			= Email Address
+emailAddress_max		= 64
+
+[ req_attributes ]
+challengePassword		= A challenge password
+challengePassword_min		= 4
+challengePassword_max		= 20
+
+[ ca ]
+default_ca			= CA_default
+
+[ CA_default ]
+dir     = /Users/s6113712/CA
+certs       = $dir
+database    = $dir/demoCA/index.txt
+#unique_subject = no
+new_certs_dir = $dir/demoCA/newcerts
+certificate = $dir/iPEBG-TY.cer
+serial      = $dir/demoCA/serial
+private_key = $dir/iPEBG-TY.key
+default_days = 1095
+default_md  = default
+preserve    = no
+policy      = policy_match
+
+[ policy_match ]
+countryName = match
+stateOrProvinceName = optional
+organizationName    = optional
+organizationalUnitName  = optional
+commonName      = supplied
+emailAddress        = optional

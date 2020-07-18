@@ -1,0 +1,4 @@
+error_reporting(E_ALL);
+$error_descriptions[E_ERROR]   = "A fatal error has occured";
+$error_descriptions[E_WARNING] = "PHP issued a warning";
+$error_descriptions[E_NOTICE]  = "This is just an informal notice";
