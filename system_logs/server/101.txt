@@ -1,0 +1,20 @@
+SSK U 盘安装 CentOS 7 镜像
+101 安装 CentOS 7
+CentOS 7 配置网络：路由器地址，子网掩码
+CentOS 同步网络时间
+yum -y install ntp
+ntpdate 0.asia.pool.ntp.org
+hwclock --systohc
+安装 minikube
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+安装 docker
+curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+service start docker
+添加用户
+useradd scfhao
+passwd scfhao
+安装kubectl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+docker 配置阿里镜像（不然好的镜像pull不下来）
