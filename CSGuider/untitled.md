@@ -58,4 +58,43 @@ Status ListInsert_Sq(SqList *L, int i, int e) {
 
 在 C 语言中，不管是变量、常量还是函数，在程序运行的过程中都是内存中的一段二进制，所以对于不同类型的值，我们只需要关注其在内存中的起始地址及占内存长度即可，可以用`void *`指向其内存的起始地址，然后再定义一个变量代表该类型在内存中的长度即可。
 
-基于以上的思路，我写了
+基于以上的思路，我写了一个可以同时兼容多种类型的顺序表，并分别写了在其中存放`int`、`struct`、`char *`三种数据的示例代码。完整可运行的程序代码参见【】。
+
+顺序表的结构体定义如下：
+
+```C
+typedef struct {
+    int capacity;   // 容量，即够存多少个元素
+    int increament; // 增量，容量不够时容量的增量
+    int typeSize;   // 一个元素的内存大小
+    int length;     // 有几个元素
+    void *elements; // 元素数组
+} _USqList;
+```
+
+在顺序表中插入一个元素的代码如下：
+
+```C
+Status ListInsert_USq(USqList list, int i, void *element) {
+    _USqList * _list = (_USqList *)list;
+    if (i < 1 || i > _list->length + 1) return ERROR;
+    if (_list->length >= _list->capacity) {
+        void *elements = realloc(_list->elements, (_list->capacity + _list->increament)*_list->typeSize);
+        if (!elements) {
+            return OVERFLOW;
+        }
+        _list->elements = elements;
+        _list->capacity += _list->increament;
+    }
+    for (void *p = _list->elements+_list->length*_list->typeSize; p >= _list->elements+_list->typeSize*i; p-=_list->typeSize) {
+        memcpy(p, p-_list->typeSize, _list->typeSize);
+    }
+    memcpy(_list->elements+(i-1)*_list->typeSize, element, _list->typeSize);
+    _list->length++;
+    return 1;
+}
+```
+
+因为是对内存和指针进行操作，所以移动元素、设置元素值都是用的`memcpy()`函数直接复制内存中的数据实现的。另外需要注意的就是在这个顺序表中每两个相邻的元素在内存中地址的差值就是`typeSize`，也就是当前存的元素类型的长度，所以程序中很多地方都有`*_list->typeSize`的计算。对于指针功底扎实的同学来说，看懂这个程序不难，就不再进行过多的讲解了。
+
+这篇文章拖了很长时间，删删写写了好几次，有点感受到自己表达能力的局限了，这一版本仍然不太满意，但是已经没有力气再修改了。对我写的代码如果有不明白的地方欢迎留言：）
