@@ -1,0 +1,336 @@
+﻿标题: 电子书下载站Z-Library使用简介
+
+创建: 2023-07-10 20:46
+更新: 2023-07-22 22:10
+链接: https://scz.617.cn/misc/202307102046.txt
+
+--------------------------------------------------------------------------
+
+目录:
+
+    ☆ 背景介绍
+    ☆ 访问Z-Library
+        1) Tor线路
+        2) 私有域名
+        3) Z-Library Official links
+        4) 上传PDF (未实测)
+    ☆ Z-Library伪站
+    ☆ 其他电子书下载方案
+        1) annas-archive.org
+        2) libgen.is
+        3) 读秀库
+        4) 无名图书
+    ☆ 文件格式转换
+    ☆ 课后作业
+    ☆ 后记
+    ☆ 参考资源
+
+--------------------------------------------------------------------------
+
+☆ 背景介绍
+
+找PDF版电子书时，不要错过Z-Library。参[1]，维基百科上有介绍
+
+https://en.wikipedia.org/wiki/Z-Library
+
+原来有个域名"z-lib.org"，已被FBI查封并接管，现在访问会看到FBI的信息。
+
+关于Z-Library不多介绍，谁用谁知道，点到为止。假设要下这本书
+
+1988年的《概率论与数理统计》，陈开明，复旦大学出版社，ISBN:10653005
+
+本文以此为例进行科普。该书没什么新鲜的，只是示例，别搁我面前充大聪明，送人
+上路很果断的。
+
+☆ 访问Z-Library
+
+Z-Library的某些访问通道被FBI查封后，事实上存留了其他访问通道，Z-Library的
+Tor空间官网一直活着。若你仔细研读Z-Library的维基百科，还能找到其他可用通道，
+本文只是将这些信息整理后复述一遍。
+
+1) Tor线路
+
+参[6]
+
+假设你有多条加密SOCKS5线路，其中A线路是Tor线路，B线路与Tor无关。此时，A线
+路可以访问"*.onion"的域名，B线路不行。本文不讨论如何获取A线路，假设已经拥
+有A线路，在人均网络水平世界第一的区域，该假设成立。
+
+这是一个Tor线路测试网站
+
+https://check.torproject.org/
+
+用浏览器挂线路访问之，若测试通过，则符合要求。用Tor线路访问
+
+http://bookszlibb74ugqojhzhg2a63w5i2atv5bqarulgczawnbmsb6s6qead.onion/
+
+是HTTP，不是HTTPS。这是Z-Library的Tor空间官网，必须挂Tor线路才能访问，非
+Tor线路访问不到。还有几个类似的"*.onion"，访问时最终会重定向到上述URL。
+
+浏览器访问成功后，邮箱注册、登录、搜索、下载PDF，常规操作。搜索时是模糊匹
+配，可以AND(逻辑与)多个关键字，下面这些都能找到目标，其中ISBN号最精准:
+
+「概率论与数理统计 复旦大学出版社」
+「陈开明 复旦大学出版社」
+「10653005」
+
+找到后点击"Preview"预览一下，避免下错，再点"Download"下载。普通帐号24小时
+内只能下10本，第二天重置计数器。有人下雨天打孩子，闲着也是闲着，每天都下几
+本。
+
+2) 私有域名
+
+用Tor线路访问Z-Library，可能不够快，下载较大PDF时有些慢。Z-Library对此有解
+决方案，提供与帐号(邮箱)绑定的Z-Library私有域名，可用非Tor线路访问之。
+
+假设已登录Z-Library的Tor空间官网，依次点击右上角"三道杠"、"Z-Access"、
+"Web Version"，出现"Your Personal domain"，有两个Z-Library私有域名，比如:
+
+(略)
+
+可用「非Tor线路」访问Z-Library私有域名，它们与帐号(邮箱)绑定，不会提示输入
+帐号，只提示输入密码。显然，不应向他人分享Z-Library私有域名，除非你愿意提
+供密码，否则白分享。
+
+登录Z-Library私有域名后，就是普通搜索、下载，同前。
+
+3) Z-Library Official links
+
+假设已登录Z-Library官网，依次点击"Z-Access"、"Useful Links"，会看到另外两
+个URL
+
+http://loginzlib2vrak5zzpcocc3ouizykn6k5qecgj2tzlnab5wcbqhembyd.onion
+https://singlelogin.se
+
+必须挂Tor线路登录"loginzlib*.onion"，之后会重定向到"bookszlib*.onion"。
+
+任意线路均可登录"singlelogin.se"，之后会重定向到
+
+https://zlibrary-africa.se/
+
+可直接登录"zlibrary-africa.se"，而非从"singlelogin.se"接入，亦属Z-Library
+官网，其帐号体系同Z-Library的Tor空间官网所用帐号，两边是同步的。登录后，可
+搜索、下载，同前。
+
+还有许多成对的"singlelogin.*"、"zlibrary-*.*"，但不好判断是否为官方通道，
+可冒险测试后记录下属于官方通道的那些，我就记了一批。相比Z-Library私有域名，
+这种通道亦不要求Tor线路，但需要user/pass登录，而非只输入pass登录。这种通道
+速度上可能优于Tor线路。
+
+4) 上传PDF (未实测)
+
+登录Z-Library官网，点击右上角"三道杠"，显示的UI里第二行第三列是Uploads。
+
+☆ Z-Library伪站
+
+参[4]
+
+登录Z-Library官网后，页面醒目提示三个Z-Library伪站
+
+z-lib.io
+z-lib.is
+zlibrary.to
+
+这些伪站与Z-Library无关，各有独立帐号体系，user/pass务必不同于Z-Library官
+网。虽是伪站，也能下电子书，网友UID(2732035312)简述了第一个伪站的用法。
+
+https://z-lib.io
+
+邮箱注册帐号，搜书，比如这本
+
+https://z-lib.io/book/14971523
+
+2006年的《概率论与数理统计》，何书元，高等教育出版社，ISBN 10:7040192810，
+ISBN 13:9787040192810。
+
+书籍页面有"Request Code:ZLIBIO3655970"，点击"Request this book"，会拉你进
+Discord。在Discord界面底部输入"ZLIBIO3655970"，机器人会自动回复下载链接，
+比如:
+
+https://breathebook.org/d/58501
+
+浏览器可直接下载PDF。初次操作麻烦些，以后还算方便。
+
+相比官网，该伪站没有每24小时10本的限制，但收录的书不如官网多；有些书虽然有，
+但书籍描述信息不如官网完备，检索时不易命中。伪站算是官网的一个有效补充吧。
+
+☆ 其他电子书下载方案
+
+参[5]
+
+除了Z-Library官网与伪站，还有许多其他电子书下载方案。
+
+1) annas-archive.org
+
+https://annas-archive.org
+
+试举几例搜索关键字
+
+「概率论与数理统计 陈开明」
+「概率论与数理统计 何书元」
+
+依次命中
+
+https://annas-archive.org/md5/93844d5fed2ddde26d1925b828b70e00
+https://annas-archive.org/md5/494c5fc307060ac3b6abf5e378d038ba
+
+URL中的数字是PDF文件的MD5，下载PDF后可自行验证。
+
+页面中"Fast downloads"是付费用户，我们得用"Slow & external downloads"。一
+般第一个带"unlimited downloads"字样，就用这个好了。万一404，再试其他URL。
+
+2) libgen.is
+
+https://libgen.is/
+
+试举几例搜索关键字
+
+「何书元」
+
+依次命中
+
+https://libgen.is/book/index.php?md5=494C5FC307060AC3B6ABF5E378D038BA
+
+URL中的数字是PDF文件的MD5，下载PDF后可自行验证。
+
+页面中有类似这样的可点击超链
+
+--------------------------------------------------------------------------
+Libgen & IPFS & Tor     // WEB
+Libgen.lc               // WEB
+Gnutella                // 磁力链
+Ed2k                    // 电驴
+DC++                    // 磁力链
+Torrent per 1000 files  // BT种子
+--------------------------------------------------------------------------
+
+前两个是WEB下载，分别点击，转至
+
+http://library.lol/main/494C5FC307060AC3B6ABF5E378D038BA
+https://libgen.rocks/ads.php?md5=494C5FC307060AC3B6ABF5E378D038BA
+
+这两个页面大同小异，顶部有个醒目的"GET"，点击即可下载PDF。第二个页面更强些，
+可以选不同下载线路，甚至包含Tor线路下载点。
+
+3) 读秀库
+
+网友baomian提及此法
+
+https://freembook.com/
+
+试举几例搜索关键字
+
+「概率论与数理统计,何书元」
+
+注意命中后的显示是「概率论与数理统计,何书元编,北京：高等教育出版社」，该站
+只支持单个子串匹配，不支持多关键字AND，「概率论与数理统计,何书元」只是看着
+像多关键字AND而已，不要误会。
+
+该站只提供「百度秒传链接」，相对来说「方法二使用链接直接转存」还凑合。请确
+保已在浏览器中登录了百度网盘，然后复制「方法二」的链接到同一浏览器的新标签
+页中打开，若页面显示了文件名，一般表示转存成功，文件将会保存到网盘根目录。
+最终还得从百度网盘下载，此法有些鸡肋。
+
+4) 无名图书
+
+https://www.book123.info
+
+试举几例搜索关键字
+
+「9787040192810」
+
+虽然命中，但没有可下载文件。不要误会，也有很多书籍可直接下载。该站书籍页面
+可能有书评，有些挺有意思的。
+
+☆ 文件格式转换
+
+Z-Library有个特色功能，假设搜到的书是EPUB格式，不要直接点"Download"，下拉
+列表中有"Convert to PDF"，点它就可以下载PDF格式，此时是可选其中文字的PDF；
+此法也支持TXT、RTF等格式。
+
+网友UID(1953558720)提及在线转换工具，据说可以保留排版和字体，我未实测。
+
+https://cloudconvert.com/epub-to-pdf
+
+网友UID(1077232180)提及，Microsoft Store中搜"PDF X"，该软件可在Windows上阅
+读epub文件。实测了一下，虽然有些功能需要"应用内购买"，但不用理它，因为阅读
+epub的功能免费。假设你的Windows有Store，这倒是个好方案。
+
+网友UID(6274281306)提及，SumatraPDF可在Windows上阅读epub文件。实测了一下，
+该软件官方说明是，支持PDF、epub、mobi等等格式，完全免费，支持XP至Win10，XP
+需要单独一个版本，其余OS共用一个版本，不要下错了。更令人满意的是，该软件提
+供单个EXE免安装便携版，双击直接可用，这简直太符合本人味口。
+
+https://www.sumatrapdfreader.org/download-free-pdf-viewer
+
+网友UID(1927665577)分享了在线阅读epub方案
+
+https://reader.960960.xyz/#/manager/empty
+
+浏览器打开，点击Import上传自己的epub，点击阅读，无需注册帐号。相比离线本地
+阅读，不太推荐一切线上方案，有些书不方便上传。但我收录了该方案，有时只有浏
+览器，又想快速阅读epub时，或许用得上。
+
+网友UID(7848998406)提及一个github项目，号称跨平台电子书阅读器，支持pdf、
+epub、mobi、md、xhtml。该项目提供单个EXE免安装便携版，访问下列第二个URL获
+取。相比SumatraPDF，Koodo Reader笨重许多，若只是阅读，并不打算管理，后者意
+义有限。看了一眼GUI，该项目应该与网友UID(1927665577)提及的在线方案是一伙的，
+相当于离线版。
+
+Koodo Reader
+https://github.com/troyeguo/koodo-reader
+https://koodo.960960.xyz/
+
+calibre可以阅读epub文件
+
+https://calibre-ebook.com/
+
+退一万步说，epub文件就是个压缩包，用7-Zip解开就是一堆xhtml文件，用浏览器打
+开即可，并非必需各种所谓定制阅读软件。
+
+☆ 课后作业
+
+2023.7.3，原中央统战部部长阎明复逝世。2015年人民出版社出过两册《阎明复回忆
+录》，现在还能买到纸版，ISBN 10:7010149356，ISBN 13:9787010149356。
+
+网友UID(2547499773)推荐《曾彦修访谈录》，2020年人民文学出版社出版，ISBN 10
+:7020156495，ISBN 13:9787020156498。
+
+这些书都是国内正规出版社出版，请用所学知识下载之。
+
+☆ 后记
+
+本文聚焦PDF电子书下载，实用科普，且不涉及线路相关问题；可能是迄今为止最实
+用的Z-Library使用简介。至于Telegram、Email等电子书获取方案，因个人喜好及某
+些现实考量，不予采纳，也不置评。欢迎反馈补充「其他电子书下载方案」，我会迭
+代更新本文，从社区中来，回社区中去。
+
+特别感谢bluerust及网友UID(2732035312)，初版主要信息由他们提供。
+
+☆ 参考资源
+
+[1] https://en.wikipedia.org/wiki/Z-Library
+
+    http://z-lib.org/
+    (已被FBI查封)
+
+[4] Z-Library伪站
+
+    https://z-lib.io
+    https://z-lib.is
+    https://zlibrary.to
+
+[5] 其他电子书下载方案
+
+    https://annas-archive.org
+
+    https://libgen.is/
+
+    读秀库
+    https://freembook.com/
+
+    无名图书
+    https://www.book123.info
+
+[6] Tor线路测试网站
+    https://check.torproject.org/
