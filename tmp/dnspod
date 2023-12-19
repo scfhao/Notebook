@@ -1,0 +1,62 @@
+#!/bin/bash
+###############################
+# 通過 DNSPod api 更新自己的 IP 地址
+# Author: scfhao
+# QQ：2945214949
+# Date: 2023
+###############################
+LoginToken=417355,109dee1d6361409a19354aac10c62d72
+Domain=scfhao.cn
+SubDomain=home
+RecordId=482360785
+RecordLineId=7%3D0
+#-------------配置--------------
+IPFile=/var/tmp/last_ip.dat
+
+# 输出日志
+function log() {
+	LogFile=/var/log/dnspod.log
+	time=`date +"%Y-%m-%d %H:%M:%S"`
+	echo "[$time]$1" >> "$LogFile"
+}
+
+# 获取当前的IP地址
+# 先从 Oray 获取 IP，其返回内容为：Current IP Address: 171.116.76.59
+# 有可能获取失败，失败后重新获取，直至获取成功
+function getCurrentIP() {
+	ip=""
+	while [[ "${#ip}" == "0" ]]; do
+		ip=$(curl "http://ddns.oray.com/checkip")
+		# 截取IP字符串中的IP地址
+		ip=${ip##* }
+	done
+	echo "$ip"
+}
+
+# 调用DNSPOD API更新IP
+function updateIP() {
+	echo "$1" > "$IPFile"
+	log "更新IP为$1"
+	result=$(curl -X POST https://dnsapi.cn/Record.Modify -d "login_token=$LoginToken&format=json&domain=$Domain&record_id=$RecordId&sub_domain=$SubDomain&value=$1&record_type=A&record_line_id=$RecordLineId")
+	log "$result"
+}
+
+# 程序主逻辑
+function main() {
+	log "启动检查"
+	ip=$(getCurrentIP)
+	log "当前IP：$ip"
+	if [[ -f "$IPFile" ]]; then
+		last_ip=$(cat "$IPFile")
+		log "之前IP：$last_ip"
+		if [[ "$ip" != "$last_ip" ]]; then
+			updateIP $ip
+		fi
+	else
+		touch $IPFile
+		updateIP $ip
+	fi
+}
+
+# 调用入口
+main "$@"
