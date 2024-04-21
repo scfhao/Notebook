@@ -1,0 +1,80 @@
+version: '3.9' # 指定Docker Compose文件的版本
+
+services: # 定义服务，这里我们定义了两个服务：mysql和wordpress
+
+  mysql: # MySQL数据库服务
+    image: mysql:5.7 # 使用官方MySQL 5.7镜像作为基础
+    # restart: always
+    container_name: wp_mysql # 自定义容器名称为wp_mysql
+    environment: # 设置环境变量以配置MySQL
+      MYSQL_ROOT_PASSWORD: afdxvd2 # 设置root用户的密码
+      MYSQL_DATABASE: wordpress # 创建名为wordpress的数据库
+      MYSQL_USER: wpuser # 创建一个用户名为wpuser的用户
+      MYSQL_PASSWORD: alcfwaf3 # 为wpuser用户设置密码
+    volumes: # 挂载数据卷以便持久化存储MySQL的数据
+      - db_data:/var/lib/mysql # 将容器内的/var/lib/mysql目录挂载到宿主机的db_data目录
+    networks: # 将该服务加入指定网络
+      - wp_net
+
+  wordpress: # WordPress应用服务
+    depends_on: # 设置依赖关系，确保在启动WordPress前先启动MySQL
+      - mysql
+    image: wordpress:php8.3-fpm-alpine # 使用带有PHP-FPM的Alpine版WordPress镜像，配合Nginx更合适
+    container_name: wp_wordpress # 自定义容器名称为wp_wordpress
+    environment: # 设置环境变量以配置WordPress连接数据库
+      WORDPRESS_DB_HOST: mysql:3306 # WordPress需要连接的MySQL服务的地址（通过服务名mysql访问，端口号默认3306）
+      WORDPRESS_DB_NAME: wordpress # WordPress使用的数据库名称
+      WORDPRESS_DB_USER: wpuser # WordPress连接数据库的用户名
+      WORDPRESS_DB_PASSWORD: alcfwaf3 # WordPress连接数据库的密码
+    volumes: # 挂载数据卷以便持久化存储WordPress的数据
+      - wp_html:/var/www/html # 将容器内的/var/www/html/wp-content目录挂载到宿主机的wp_content目录
+    networks: # 将该服务加入指定网络
+      - wp_net
+
+  nginx:
+    image: nginx:latest
+    container_name: wp_nginx
+    ports: 
+      - "80:80"
+      - "443:443"
+    volumes:
+      # 把Nginx配置文件映射进容器
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      # 映射WordPress的web根目录
+      - wp_html:/var/www/html
+      # 映射证书文件
+      - /var/lib/docker/volumes/wordpress_acmeout/_data/store.scfhao.cn:/etc/nginx/ssl
+    labels:
+      - sh.acme.autoload.domain=store.scfhao.cn
+    depends_on: 
+      - wordpress
+    networks:
+      - wp_net
+
+  acme-sh:
+    image: neilpang/acme.sh
+    container_name: acme.sh
+    volumes:
+      - acmeout:/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: "daemon"
+    environment:
+      TZ: Asia/Shanghai
+      DP_Id: 488306
+      DP_Key: c389ccf4fadaa99932aab29b87fa55f5
+      DEPLOY_DOCKER_CONTAINER_LABEL: "sh.acme.autoload.domain=store.scfhao.cn"
+      DEPLOY_DOCKER_CONTAINER_KEY_FILE: "/etc/nginx/ssl/store.scfhao.cn/key.pem"
+      DEPLOY_DOCKER_CONTAINER_CERT_FILE: "/etc/nginx/ssl/store.scfhao.cn/cert.pem"
+      DEPLOY_DOCKER_CONTAINER_CA_FILE: "/etc/nginx/ssl/store.scfhao.cn/ca.pem"
+      DEPLOY_DOCKER_CONTAINER_FULLCHAIN_FILE: "/etc/nginx/ssl/store.scfhao.cn/full.pem"
+      DEPLOY_DOCKER_CONTAINER_RELOAD_CMD: "service nginx force-reload"
+
+volumes: # 定义数据卷，用于持久化存储数据
+  # 没有显式指定位置，则在这个地方/var/lib/docker/volumes/
+  db_data: {}
+  wp_html: {}
+  acmeout: {}
+
+networks: # 定义自定义网络，使容器之间能够相互通信
+  wp_net:
+    driver: bridge # 使用桥接网络模式
