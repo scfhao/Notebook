@@ -1,0 +1,109 @@
+使用 React 时，需要用 unpkg.com 载入`react`和`react-dom`脚本，而使用 Next.js 时，则是使用`npm`在本地安装这些包。
+
+在`index.html`相同目录下创建`package.json`，里面写入`{}`。执行：
+
+```shell
+# 万恶的gfw
+# npm config set registry https://registry.npmjs.org/ 
+npm install react@latest react-dom@latest next@latest
+```
+
+创建`app`文件夹，并在其中创建`page.js`，内容如下：
+
+```JSX
+import { useState } from 'react';
+ 
+function Header({ title }) {
+  return <h1>{title ? title : 'Default title'}</h1>;
+}
+ 
+export default function HomePage() {
+  const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
+ 
+  const [likes, setLikes] = useState(0);
+ 
+  function handleClick() {
+    setLikes(likes + 1);
+  }
+ 
+  return (
+    <div>
+      <Header title="Develop. Preview. Ship." />
+      <ul>
+        {names.map((name) => (
+          <li key={name}>{name}</li>
+        ))}
+      </ul>
+ 
+      <button onClick={handleClick}>Like ({likes})</button>
+    </div>
+  );
+}
+```
+
+修改 package.json：
+
+```json
+{
+  "scripts": {
+    "dev": "next dev"
+  },
+  "dependencies": {
+    "next": "^14.0.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
+```
+
+运行`npm run dev`，此时浏览器访问`localhost:3000`时会报错，是因为 Next.js 使用 React Server 组件，其不支持`useState`，我们需要使用 Client 组件。
+
+同时 app 目录下自动生成了一个`layout.js`文件，可以在里面设置页面布局，类似 jekyll。
+
+React 组件可以是服务器组件也可以是客户端组件，默认是服务端组件，又服务器渲染后返回给浏览器，这样可以提升应用性能。
+
+之前的程序报错的原因是在服务端组件上使用`useState`，我们可以通过将 Like 按钮移到客户端组件来修复这个问题。
+
+在`app`目录下创建`like-button.js`文件：
+
+```jsx
+'use client';// 这句话告诉 React 在客户端上渲染本组件
+
+import { useState } from 'react';
+
+export default function LikeButton() {
+	const [likes, setLikes] = useState(0);
+
+	function handleClick() {
+		setLikes(likes+1);
+	}
+
+	return <button onClick={handleClick}>Likes ({likes})</button>;
+}
+```
+
+在`page.js`中使用`LikeButton`组件：
+
+```jsx
+import LikeButton from './like-button';
+ 
+function Header({ title }) {
+  return <h1>{title ? title : 'Default title'}</h1>;
+}
+ 
+export default function HomePage() {
+  const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
+ 
+  return (
+    <div>
+      <Header title="Develop. Preview. Ship." />
+      <ul>
+        {names.map((name) => (
+          <li key={name}>{name}</li>
+        ))}
+      </ul>
+      <LikeButton />
+    </div>
+  );
+}
+```
