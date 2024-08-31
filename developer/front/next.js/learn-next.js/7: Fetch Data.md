@@ -1,0 +1,105 @@
+## 使用服务器组件获取数据
+
+Next.js 默认使用 React 服务器组件。使用服务器组件获取数据是一种相对较新的方法，使用它们有一些好处：
+
+* 服务器组件支持 Promise，为数据获取等异步任务提供了更简单的解决方案。您可以使用`async/await`语法，而无需使用`useEffect`、`useState`或数据获取库。
+* 服务器组件在服务器上执行，因此可以在服务器上保留昂贵的数据获取和逻辑，只将结果发送给客户端。
+* 如前所述，由于服务器组件是在服务器上执行的，因此可以直接查询数据库，而无需额外的 API 层。
+
+## 使用 SQL
+
+在仪表盘项目中，您将使用[Vercel Postgres SDK](https://vercel.com/docs/storage/vercel-postgres/sdk)和 SQL 编写数据库查询。
+
+打开`/app/lib/data.ts`文件，这里你可以看到从`@vercel/postgres`引入了[sql](https://vercel.com/docs/storage/vercel-postgres/sdk#sql)函数，这个函数可以让你查询数据库。
+
+```ts
+import { sql } from '@vercel/postgres';
+```
+
+你可以在任何服务器组件中调用`sql`。但为了让你可以更方便的在组件中导航，我们保持把所有的数据查询放到`data.ts`文件中，你可以把它引入其他组件。
+
+## 为 dashboard 页面获取数据
+
+`/app/dashboard/page.tsx`:
+
+```tsx
+import { Card } from '@/app/ui/dashboard/cards';
+import RevenueChart from '@/app/ui/dashboard/revenue-chart';
+import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
+import { lusitana } from '@/app/ui/fonts';
+
+export default async function Page() {
+	return (
+		<main>
+			<h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
+				Dashboard
+			</h1>
+			<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+				{/* <Card title="Collected" value={totalPaidInvoices} type="collected" /> */}
+		        {/* <Card title="Pending" value={totalPendingInvoices} type="pending" /> */}
+		        {/* <Card title="Total Invoices" value={numberOfInvoices} type="invoices" /> */}
+		        {/* <Card
+		          title="Total Customers"
+		          value={numberOfCustomers}
+		          type="customers"
+		        /> */}
+			</div>
+			<div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
+				{/* <RevenueChart revenue={revenue}  /> */}
+        		{/* <LatestInvoices latestInvoices={latestInvoices} /> */}
+			</div>
+		</main>
+	);
+}
+```
+
+上述代码中：
+
+* Page 是一个**async**组件，这样就允许你使用`await`去获取数据。
+* 这里还有三个接受数据的组件：`<Card>`，`<RevenueChart>`和`<LatestInvoices>`。
+
+## 为`<RevenueChart/>`获取数据
+
+```tsx
+import { fetchRevenue } from '@/app/lib/data';
+
+export default async function Page() {
+	const revenue = await fetchRevenue();
+	// ...
+}
+```
+
+## 为`<LatestInvoices/>`获取数据
+
+对于`<LatestInvoices />`组件，我们需要获取最后 5 个发票，按日期排序。
+
+`data.ts`文件中的 SQL 查询如下：
+
+```ts
+const data = await sql<LatestInvoiceRaw>`
+	SELECT invoices.amount, customers.name, customers.image_url, customers.email
+	FROM invoices
+	JOIN customers ON invoices.customer_id = customers.id 
+	ORDER BY invoices.date DESC
+	LIMIT 5`;
+```
+
+在你的页面中，导入`fetchLatestInvoices`函数：
+
+```tsx
+import { fetchRevenue, fetchLatestInvoices } from '@/app/lib/data';
+
+export default async function Page() {
+	const revenue = await fetchRevenue();
+	const latestInvoices = await fetchLatestInvoices();
+	// ...
+}
+```
+
+
+
+
+
+
+
+
