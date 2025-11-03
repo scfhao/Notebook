@@ -5,3 +5,9 @@ ip: 103.137.185.66
 
 网站邮箱 scfhao@126.com
 网站密码 zA@T.6m5YYf3vfc
+
+数据库：website
+用户名：website
+phpMyAdmin用户名:doscfhao_website
+密码：zA@T.6m5YYf3vfc
+
