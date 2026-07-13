@@ -18,11 +18,7 @@ rpc 调用可实现失败自动重试，启动 rpc 服务
 
 ```bash
 # 先启动 RPC 服务（带自动重试参数）
-aria2c --enable-rpc --rpc-listen-port=6800 \
-       --max-tries=0 \          # 无限重试
-       --retry-wait=5 \         # 重试间隔5秒
-       --check-certificate=false \
-       -D
+aria2c --enable-rpc --rpc-listen-port=6800 --max-tries=0 --retry-wait=5 --check-certificate=false -D
 ```
 
 添加下载项：
