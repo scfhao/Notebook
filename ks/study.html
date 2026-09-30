@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>專案工程師考試備考 · 核心知識複習</title>
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --accent-dark: #1d4ed8;
+    --border: #e5e7eb;
+    --chip-bg: #eff6ff;
+    --chip-text: #1d4ed8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px;
+  }
+  .container {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  header h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  header p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .progress-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 999px;
+    margin: 0 12px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    border-radius: 999px;
+    transition: width 0.3s ease;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .chip {
+    display: inline-block;
+    align-self: flex-start;
+    background: var(--chip-bg);
+    color: var(--chip-text);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+  .outline {
+    font-size: 1.15rem;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 8px 0 20px;
+  }
+  .interpretation {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #374151;
+    background: #f9fafb;
+    border-left: 4px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 16px;
+  }
+  .interpretation code {
+    background: #eef2ff;
+    color: #4338ca;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.9em;
+  }
+  .nav {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  button {
+    flex: 1;
+    padding: 14px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, opacity 0.2s;
+  }
+  button:active { transform: scale(0.98); }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-prev {
+    background: #e5e7eb;
+    color: #374151;
+  }
+  .btn-prev:hover:not(:disabled) { background: #d1d5db; }
+  .btn-next {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-next:hover:not(:disabled) { background: var(--accent-dark); }
+  .counter {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+  .reset-row {
+    text-align: center;
+    margin-top: 8px;
+  }
+  .btn-reset {
+    flex: none;
+    display: inline-block;
+    padding: 6px 16px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .btn-reset:hover {
+    color: #dc2626;
+    border-color: #fca5a5;
+    background: #fef2f2;
+  }
+  .empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 40px 0;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>📚 專案工程師考試 · 核心知識複習</h1>
+    <p>一、核心知識（適用於選擇題備考）</p>
+  </header>
+
+  <div class="progress">
+    <span id="counter">0 / 0</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span id="percent">0%</span>
+  </div>
+
+  <div class="card" id="card">
+    <span class="chip" id="type"></span>
+    <div class="label">大綱條目</div>
+    <div class="outline" id="outline"></div>
+    <hr class="divider">
+    <div class="label">知識點解讀</div>
+    <div class="interpretation" id="interpretation"></div>
+  </div>
+
+  <div class="nav">
+    <button class="btn-prev" id="prevBtn">← 上一條</button>
+    <button class="btn-next" id="nextBtn">下一條 →</button>
+  </div>
+  <div class="counter" id="position"></div>
+  <div class="reset-row">
+    <button class="btn-reset" id="resetBtn">↺ 重置進度</button>
+  </div>
+</div>
+
+<script>
+// 資料來源：ks/index.md「一、核心知識（適用於選擇題備考）」
+// 每筆資料：{ type: 類型, outline: 大綱條目, interpretation: 知識點解讀 }
+const DATA = [
+  // ===== 第一類：K01 =====
+  { type: "React", outline: "函式元件中管理狀態的 Hook", interpretation: "useState" },
+  { type: "React", outline: "類元件中在元件首次渲染後被呼叫的生命週期方法", interpretation: "componentDidMount" },
+  { type: "React", outline: "用於執行副作用操作（如 API 呼叫）的 Hook", interpretation: "useEffect" },
+  { type: "React", outline: "避免 prop drilling（多層傳遞 props）的模式", interpretation: "Context API / 狀態管理（Redux、Zustand）" },
+  { type: "React", outline: "useEffect Hook 的使用原則", interpretation: "在 effect 中執行副作用，避免在 render 中直接操作外部資源" },
+  { type: "React", outline: "useEffect 清理函數（取消訂閱、清除計時器）", interpretation: "return () => { ... } 在元件卸載或重新執行前清理" },
+  { type: "React", outline: "useEffect 相依陣列（空陣列、有條件重新執行）", interpretation: "[] 僅首次執行；指定依賴則依賴變化時重新執行" },
+  { type: "React", outline: "狀態管理原則（狀態提升、Redux、Zustand、useReducer、Context API）", interpretation: "狀態提升至共同父元件；複雜狀態用 Redux/Zustand/useReducer；跨層用 Context" },
+
+  { type: "Vue", outline: "Vue 3 中用於在元件中建立響應式資料的 API", interpretation: "ref / reactive" },
+  { type: "Vue", outline: "用於條件渲染區塊的指令", interpretation: "v-if / v-else / v-show" },
+  { type: "Vue", outline: "DOM 更新完成後被呼叫的生命週期鉤子", interpretation: "onMounted / mounted" },
+  { type: "Vue", outline: "元件間通訊方式（props、$emit、Event Bus、Vuex、provide/inject）", interpretation: "父傳子用 props，子傳父用 $emit，跨層用 provide/inject，複雜狀態用 Vuex" },
+  { type: "Vue", outline: "跨多層級深層元件通訊（provide / inject）", interpretation: "provide / inject" },
+  { type: "Vue", outline: "非父子元件通訊（Event Bus、Vuex）", interpretation: "Event Bus（mitt）或 Vuex 集中管理" },
+
+  { type: "Angular", outline: "用於定義元件的裝飾器", interpretation: "@Component" },
+  { type: "Angular", outline: "在元件之間傳遞資料且使用 @Input() 裝飾器的方法（父傳子）", interpretation: "@Input() 屬性綁定" },
+  { type: "Angular", outline: "用於在路由之間導航的服務", interpretation: "Router（router.navigate）" },
+  { type: "Angular", outline: "變更檢測（Change Detection）機制", interpretation: "Zone.js 偵測事件並觸發變更檢測" },
+  { type: "Angular", outline: "變更檢測策略（Default、OnPush）", interpretation: "OnPush 僅在輸入參考變化時檢查，提升效能" },
+  { type: "Angular", outline: "手動觸發變更檢測（ChangeDetectorRef.detectChanges、detach）", interpretation: "ChangeDetectorRef.detectChanges() / detach()" },
+
+  { type: "Python", outline: "實現物件導向程式設計封裝的方式（私有屬性）", interpretation: "以雙底線前綴（__attr）命名私有屬性" },
+  { type: "Python", outline: "將方法轉換為類別方法的裝飾器", interpretation: "@classmethod" },
+  { type: "Python", outline: "表示「一個類別應該只有一個改變的原因」的原則（單一職責原則）", interpretation: "單一職責原則（SRP）" },
+
+  { type: "Node.js", outline: "建立非同步函數非阻塞版本的方法（async/await）", interpretation: "async / await" },
+  { type: "Node.js", outline: "用於處理標準輸入輸出/錯誤的全域物件", interpretation: "process.stdin / process.stdout / process.stderr" },
+  { type: "Node.js", outline: "用於建立 HTTP 伺服器的模組", interpretation: "http 模組（http.createServer）" },
+
+  { type: ".NET", outline: "定義非同步方法的關鍵字", interpretation: "async / await" },
+  { type: ".NET", outline: "設定 JSON 序列化時欄位名稱的屬性", interpretation: "[JsonPropertyName(\"...\")]" },
+
+  { type: "Java", outline: "指導「類別對擴展開放，對修改關閉」的原則", interpretation: "開放封閉原則（OCP）" },
+  { type: "Java", outline: "標記方法為非同步執行的註解", interpretation: "@Async" },
+
+  { type: "通用前端原則", outline: "JavaScript 非同步處理原則（async/await、Promise.all、Promise.race、try...catch）", interpretation: "async/await 簡化 Promise；Promise.all 並行等待全部；Promise.race 取最先完成；try...catch 捕獲錯誤" },
+
+  // ===== 第二類：K02 =====
+  { type: "Spring Boot", outline: "將應用程式打包成可執行 JAR 並內嵌 Servlet 容器的註解", interpretation: "@SpringBootApplication" },
+  { type: "Spring Boot", outline: "在應用程式啟動時執行特定初始化邏輯的註解", interpretation: "@PostConstruct / CommandLineRunner / ApplicationRunner" },
+  { type: "Spring Boot", outline: "設定定時任務並支援 cron 表達式的註解", interpretation: "@Scheduled(cron = \"...\")" },
+  { type: "Spring Boot", outline: "宣告 Restful 風格控制器且每個方法自動加上 @ResponseBody 的註解", interpretation: "@RestController" },
+  { type: "Spring Boot", outline: "將設定檔中的屬性值映射到 Java 類別的註解", interpretation: "@ConfigurationProperties" },
+  { type: "Spring Boot", outline: "事務管理使用原則（@Transactional）", interpretation: "@Transactional 宣告式事務管理" },
+  { type: "Spring Boot", outline: "@Transactional 預設攔截範圍（RuntimeException、Error）", interpretation: "預設僅回滾 RuntimeException 與 Error" },
+  { type: "Spring Boot", outline: "傳播行為（Propagation、REQUIRES_NEW）", interpretation: "REQUIRES_NEW 開啟新事務，與原事務隔離" },
+
+  { type: "Spring Cloud", outline: "實現分散式鏈路追蹤的組件", interpretation: "Sleuth + Zipkin" },
+  { type: "Spring Cloud", outline: "實現動態配置刷新而不重啟服務的組件", interpretation: "Spring Cloud Config + Bus" },
+  { type: "Spring Cloud", outline: "實現斷路器並提供降級回退機制的組件", interpretation: "Hystrix / Resilience4j / Sentinel" },
+  { type: "Spring Cloud", outline: "實作客戶端側負載均衡的組件", interpretation: "Ribbon / Spring Cloud LoadBalancer" },
+  { type: "Spring Cloud", outline: "啟用 Feign 客戶端的註解", interpretation: "@EnableFeignClients" },
+  { type: "Spring Cloud", outline: "實作分散式訊息傳遞（事件驅動架構）的組件", interpretation: "Spring Cloud Stream" },
+  { type: "Spring Cloud", outline: "設定中心使用原則", interpretation: "集中管理設定、支援動態刷新" },
+  { type: "Spring Cloud", outline: "不同環境設定檔分離管理", interpretation: "application-dev/prod.yml 依環境切換" },
+  { type: "Spring Cloud", outline: "敏感資訊加密儲存", interpretation: "JCE 加密 / 環境變數 / 密鑰管理" },
+  { type: "Spring Cloud", outline: "Spring Cloud Bus 實現設定動態刷新", interpretation: "Bus 透過訊息佇列廣播設定變更" },
+  { type: "Spring Cloud", outline: "設定中心高可用架構", interpretation: "多節點部署 + Git 後端 + 快取" },
+  { type: "Spring Cloud", outline: "Feign 聲明式服務呼叫優化", interpretation: "設定連線/讀取超時、GZIP 壓縮" },
+  { type: "Spring Cloud", outline: "連線超時與讀取超時設定", interpretation: "connectTimeout / readTimeout" },
+  { type: "Spring Cloud", outline: "GZIP 壓縮", interpretation: "啟用 HTTP 壓縮減少傳輸量" },
+  { type: "Spring Cloud", outline: "Feign 與負載均衡整合（Ribbon、Spring Cloud LoadBalancer）", interpretation: "Feign 預設整合負載均衡器" },
+
+  { type: "Gin", outline: "分組路由以統一管理相同前置詞路由的方法", interpretation: "router.Group(\"/api\")" },
+  { type: "Gin", outline: "設定中介軟體全域生效的方法", interpretation: "router.Use(middleware)" },
+  { type: "Gin", outline: "綁定 URL 查詢參數到結構體的方法", interpretation: "c.ShouldBindQuery(&struct)" },
+  { type: "Gin", outline: "解析並綁定 URL 路徑參數（如 /user/:id 中的 id）的方法", interpretation: "c.Param(\"id\")" },
+  { type: "Gin", outline: "處理 HTTP 404 錯誤的方法", interpretation: "router.NoRoute(handler)" },
+  { type: "Gin", outline: "中間件（Middleware）正確使用方法", interpretation: "在 handler 前後執行，透過 c.Next() 控制流程" },
+  { type: "Gin", outline: "gin.HandlerFunc 類型", interpretation: "func(c *gin.Context) 的處理函數類型" },
+  { type: "Gin", outline: "c.Next() 調用後續處理函數", interpretation: "繼續執行後續 handler" },
+  { type: "Gin", outline: "c.Abort() 中止後續執行", interpretation: "停止後續 handler 執行" },
+  { type: "Gin", outline: "預設中間件（Logger、Recovery）", interpretation: "gin.Default() 內建 Logger 與 Recovery" },
+
+  { type: "Go-Zero", outline: "定義服務 API 路徑、請求與回應結構的檔案", interpretation: ".api 檔案" },
+  { type: "Go-Zero", outline: "生成 RPC 服務 gRPC 程式碼的命令", interpretation: "goctl rpc protoc" },
+  { type: "Go-Zero", outline: "包含業務邏輯具體實作的檔案", interpretation: "logic 目錄下的 .go 檔案" },
+  { type: "Go-Zero", outline: "定義服務設定結構（如資料庫連線、監聽埠）的檔案", interpretation: "config 目錄 / .yaml 設定檔" },
+  { type: "Go-Zero", outline: "產生可部署 Docker 映像檔的命令", interpretation: "goctl docker" },
+  { type: "Go-Zero", outline: "程式碼生成工具（goctl）", interpretation: "goctl" },
+  { type: "Go-Zero", outline: "根據 API 描述檔案生成服務程式碼結構", interpretation: "goctl api go" },
+  { type: "Go-Zero", outline: "產生資料庫存取模型程式碼", interpretation: "goctl model" },
+  { type: "Go-Zero", outline: "從 DDL 語句反向生成 CRUD 程式碼", interpretation: "goctl model mysql ddl" },
+  { type: "Go-Zero", outline: "統一團隊專案結構和程式碼風格", interpretation: "goctl 生成標準化目錄結構" },
+
+  { type: "Python Django", outline: "資料庫查詢最佳實踐（select_related、prefetch_related）", interpretation: "select_related 用於外鍵 JOIN；prefetch_related 用於多對多" },
+  { type: "Python Django", outline: "限制查詢欄位（values、only）", interpretation: "values() / only() 減少載入欄位" },
+  { type: "Python Django", outline: "迭代大量資料（iterator）", interpretation: "iterator() 避免一次載入全部" },
+  { type: "Python Django", outline: "避免迴圈中執行資料庫查詢", interpretation: "使用 select_related / prefetch_related 預先載入" },
+  { type: "Python Django", outline: "批次處理", interpretation: "bulk_create / bulk_update" },
+
+  { type: "Node.js Express", outline: "錯誤處理原則與方法", interpretation: "集中式錯誤處理中介軟體" },
+  { type: "Node.js Express", outline: "四個參數的錯誤處理中間件", interpretation: "function(err, req, res, next)" },
+  { type: "Node.js Express", outline: "process.on('unhandledRejection') 捕獲 Promise 錯誤", interpretation: "process.on('unhandledRejection', handler)" },
+  { type: "Node.js Express", outline: "同步程式碼 try...catch", interpretation: "try...catch 捕獲同步錯誤" },
+  { type: "Node.js Express", outline: "回呼函數中檢查 err 參數", interpretation: "if (err) { ... } 檢查回呼錯誤" },
+
+  { type: "ASP.NET Core", outline: "依賴注入（DI）使用原則", interpretation: "建構子注入 + 註冊服務" },
+  { type: "ASP.NET Core", outline: "服務生命週期（Singleton、Scoped、Transient）", interpretation: "Singleton 全域單例；Scoped 每請求；Transient 每次建立" },
+  { type: "ASP.NET Core", outline: "建構子注入", interpretation: "透過建構子參數注入依賴" },
+  { type: "ASP.NET Core", outline: "避免 Transient 服務參考 Singleton 服務", interpretation: "避免生命週期不一致造成問題" },
+  { type: "ASP.NET Core", outline: "服務定位器模式（IServiceProvider）", interpretation: "IServiceProvider.GetService()" },
+
+  { type: "API 閘道", outline: "閘道層統一處理的功能", interpretation: "統一入口、認證、路由、限流" },
+  { type: "API 閘道", outline: "身份認證與授權校驗", interpretation: "閘道統一校驗 JWT / Token" },
+  { type: "API 閘道", outline: "存取日誌與效能監控", interpretation: "記錄請求日誌與監控指標" },
+  { type: "API 閘道", outline: "跨域請求（CORS）配置", interpretation: "閘道統一設定 CORS" },
+  { type: "API 閘道", outline: "動態路由", interpretation: "依規則動態轉發到後端服務" },
+
+  { type: "分散式追蹤系統", outline: "主要作用與功能", interpretation: "追蹤請求在分散式系統中的完整路徑" },
+  { type: "分散式追蹤系統", outline: "還原完整呼叫鏈路", interpretation: "透過 traceId / spanId 還原鏈路" },
+  { type: "分散式追蹤系統", outline: "分析服務間依賴關係與拓撲結構", interpretation: "繪製服務依賴拓撲圖" },
+  { type: "分散式追蹤系統", outline: "定位慢查詢或慢請求", interpretation: "找出耗時節點" },
+  { type: "分散式追蹤系統", outline: "統計請求量、成功率與延遲", interpretation: "彙總服務指標" },
+
+  { type: "Docker 容器化部署", outline: "最佳實踐", interpretation: "輕量映像、單一職責、安全掃描" },
+  { type: "Docker 容器化部署", outline: "輕量化映像檔（多階段建置）", interpretation: "多階段建置（multi-stage build）" },
+  { type: "Docker 容器化部署", outline: "單一容器單一服務行程（單一職責原則）", interpretation: "一容器一進程" },
+  { type: "Docker 容器化部署", outline: "設定檔透過環境變數或 ConfigMap 掛載", interpretation: "環境變數 / ConfigMap 注入設定" },
+  { type: "Docker 容器化部署", outline: "定期掃描基礎映像檔安全漏洞", interpretation: "Trivy / Clair 掃描漏洞" },
+
+  { type: "Kubernetes", outline: "服務發現與負載均衡機制", interpretation: "Service + kube-proxy" },
+  { type: "Kubernetes", outline: "Service 資源（虛擬 IP、DNS 名稱）", interpretation: "ClusterIP 提供虛擬 IP 與 DNS" },
+  { type: "Kubernetes", outline: "Service 類型（ClusterIP、NodePort）", interpretation: "ClusterIP 內部存取；NodePort 對外暴露" },
+  { type: "Kubernetes", outline: "Ingress 路由外部請求", interpretation: "Ingress 依規則路由到 Service" },
+  { type: "Kubernetes", outline: "kube-proxy 自動負載均衡", interpretation: "kube-proxy 實現 Service 負載均衡" },
+
+  { type: "服務熔斷與服務降級", outline: "服務熔斷目的（防止錯誤連鎖反應、避免雪崩效應）", interpretation: "熔斷防止錯誤連鎖、避免雪崩" },
+  { type: "服務熔斷與服務降級", outline: "服務降級目的（壓力過大或熔斷觸發時提供有損回應）", interpretation: "降級在壓力過大時提供有損回應" },
+  { type: "服務熔斷與服務降級", outline: "熔斷器狀態（關閉、開啟、半開）", interpretation: "Closed / Open / Half-Open" },
+  { type: "服務熔斷與服務降級", outline: "降級需要業務邏輯配合", interpretation: "降級需業務邏輯配合" },
+
+  { type: "資料庫與資料儲存策略", outline: "設計原則", interpretation: "資料庫每服務模式" },
+  { type: "資料庫與資料儲存策略", outline: "資料庫每服務模式", interpretation: "每個服務獨立資料庫" },
+  { type: "資料庫與資料儲存策略", outline: "最終一致性與事件驅動架構", interpretation: "事件驅動達成最終一致性" },
+  { type: "資料庫與資料儲存策略", outline: "混合持久化（不同服務選擇不同資料庫類型）", interpretation: "依需求選擇 SQL / NoSQL" },
+  { type: "資料庫與資料儲存策略", outline: "CDC（Change Data Capture）技術", interpretation: "CDC 捕捉資料變更" },
+
+  // ===== 第三類：K03 =====
+  { type: "消息隊列（MQ）", outline: "確保訊息不會因消費者崩潰而永久遺失的機制（訊息確認機制 ACK）", interpretation: "ACK 確認機制" },
+  { type: "消息隊列（MQ）", outline: "用於防止消息重複消費的機制（冪等性設計）", interpretation: "冪等性設計" },
+  { type: "消息隊列（MQ）", outline: "專門存放無法被正常消費消息的隊列（死信隊列）", interpretation: "死信隊列（DLQ）" },
+  { type: "消息隊列（MQ）", outline: "訊息冪等性設計原則", interpretation: "處理多次與一次效果相同" },
+  { type: "消息隊列（MQ）", outline: "消費端設計（處理多次與一次效果相同）", interpretation: "消費端冪等" },
+  { type: "消息隊列（MQ）", outline: "資料庫唯一約束防止重複寫入", interpretation: "唯一約束" },
+  { type: "消息隊列（MQ）", outline: "唯一訊息識別碼（Message ID）", interpretation: "Message ID 去重" },
+  { type: "消息隊列（MQ）", outline: "Redis 記錄已處理訊息 ID", interpretation: "Redis 記錄已處理 ID" },
+  { type: "消息隊列（MQ）", outline: "順序訊息實作方案", interpretation: "Kafka 同 Partition / RocketMQ MessageQueueSelector" },
+  { type: "消息隊列（MQ）", outline: "Kafka（同一個 Partition、單一 Consumer 執行緒）", interpretation: "同 Partition 單執行緒消費保序" },
+  { type: "消息隊列（MQ）", outline: "RocketMQ（MessageQueueSelector）", interpretation: "MessageQueueSelector 選隊列" },
+  { type: "消息隊列（MQ）", outline: "消費端單執行緒消費", interpretation: "單執行緒消費保序" },
+  { type: "消息隊列（MQ）", outline: "為有序訊息群組分配獨立佇列或主題", interpretation: "獨立佇列 / 主題" },
+
+  { type: "RabbitMQ", outline: "設定隊列為排他性（連線關閉後自動刪除）的參數", interpretation: "exclusive = true" },
+  { type: "RabbitMQ", outline: "根據 routing key 模式匹配（使用 * 和 #）路由訊息的交換器類型（Topic）", interpretation: "Topic Exchange" },
+  { type: "RabbitMQ", outline: "將無法路由的訊息回傳給生產者的機制（傳回監聽器）", interpretation: "Return Listener" },
+  { type: "RabbitMQ", outline: "設定訊息在多久未被消費後自動移至死信隊列的參數", interpretation: "x-message-ttl" },
+  { type: "RabbitMQ", outline: "死信佇列（DLX）典型使用場景", interpretation: "訊息被拒絕 / 過期 / 佇列滿" },
+  { type: "RabbitMQ", outline: "訊息被消費者明確拒絕且 requeue = false", interpretation: "basicNack / basicReject" },
+  { type: "RabbitMQ", outline: "訊息存活時間超過 TTL", interpretation: "TTL 過期進死信" },
+  { type: "RabbitMQ", outline: "佇列長度達最大限制", interpretation: "佇列滿進死信" },
+
+  { type: "Redis", outline: "適合實作先進先出（FIFO）隊列的資料結構", interpretation: "List（LPUSH / RPOP）" },
+  { type: "Redis", outline: "將元素加入有序集合（Sorted Set）並指定分數的命令", interpretation: "ZADD key score member" },
+  { type: "Redis", outline: "同時設定多個欄位值到一個雜湊（Hash）的命令", interpretation: "HMSET / HSET" },
+  { type: "Redis", outline: "持久化機制選擇與配置", interpretation: "RDB / AOF" },
+  { type: "Redis", outline: "RDB（緊湊單一檔案、適合備份、fork 子行程可能短暫停頓）", interpretation: "RDB 快照" },
+  { type: "Redis", outline: "AOF（記錄所有寫入操作、資料安全性較高、檔案體積較大）", interpretation: "AOF 追加日誌" },
+  { type: "Redis", outline: "同時開啟時優先載入 AOF", interpretation: "AOF 優先載入" },
+  { type: "Redis", outline: "fsync 策略效能考量", interpretation: "always / everysec / no" },
+
+  { type: "JDBC", outline: "設定連線池最大連線數的方法", interpretation: "maximumPoolSize" },
+  { type: "JDBC", outline: "交易處理中還原交易到某個儲存點（Savepoint）的方法", interpretation: "Connection.setSavepoint()" },
+  { type: "JDBC", outline: "可能發生幻讀（Phantom Read）的隔離級別", interpretation: "READ COMMITTED 以下可能幻讀" },
+  { type: "JDBC", outline: "預編譯 SQL 語句以防止 SQL 注入的方法", interpretation: "PreparedStatement" },
+  { type: "JDBC", outline: "來自 PostgreSQL 的常見連線池實作", interpretation: "HikariCP" },
+  { type: "JDBC", outline: "批次處理大量資料效能提升做法", interpretation: "addBatch + executeBatch" },
+  { type: "JDBC", outline: "addBatch 與 executeBatch", interpretation: "批次累積後一次執行" },
+  { type: "JDBC", outline: "適當批次大小設定", interpretation: "控制批次大小避免記憶體爆量" },
+  { type: "JDBC", outline: "PreparedStatement 搭配批次處理", interpretation: "PreparedStatement + addBatch" },
+  { type: "JDBC", outline: "資料庫原生 LOAD DATA 工具", interpretation: "LOAD DATA INFILE" },
+  { type: "JDBC", outline: "連線池參數配置", interpretation: "依需求調整連線池參數" },
+  { type: "JDBC", outline: "maximumPoolSize、connectionTimeout、idleTimeout、maxLifetime、minimumIdle", interpretation: "最大連線數、連線逾時、閒置逾時、最大生命週期、最小閒置連線" },
+  { type: "JDBC", outline: "交易隔離層級特性與選擇", interpretation: "依需求選擇隔離級別" },
+  { type: "JDBC", outline: "READ UNCOMMITTED（可能髒讀、效能最高）", interpretation: "READ UNCOMMITTED" },
+  { type: "JDBC", outline: "READ COMMITTED（防止髒讀）", interpretation: "READ COMMITTED" },
+  { type: "JDBC", outline: "REPEATABLE READ（防止髒讀與不可重複讀）", interpretation: "REPEATABLE READ" },
+  { type: "JDBC", outline: "SERIALIZABLE（防止髒讀、不可重複讀與幻讀、並發效能最差）", interpretation: "SERIALIZABLE" },
+
+  { type: "Kafka", outline: "控制生產者傳送訊息時壓縮類型的參數", interpretation: "compression.type" },
+  { type: "Kafka", outline: "負責管理消費者群組偏移量的組件（Consumer Coordinator）", interpretation: "Consumer Coordinator" },
+  { type: "Kafka", outline: "決定訊息在多久內未收到確認而重新傳送的設定", interpretation: "request.timeout.ms / retries" },
+  { type: "Kafka", outline: "消費者群組設計與使用", interpretation: "Consumer Group" },
+  { type: "Kafka", outline: "同群組多消費者分擔主題分區消費", interpretation: "分區分配給群組消費者" },
+  { type: "Kafka", outline: "一個分區只能被同一群組中的一個消費者消費", interpretation: "分區與消費者一對一" },
+  { type: "Kafka", outline: "消費者數量超過分區數量時閒置", interpretation: "多餘消費者閒置" },
+  { type: "Kafka", outline: "不同群組消費進度彼此獨立", interpretation: "各群組獨立 offset" },
+
+  { type: "MongoDB", outline: "建立唯一性約束的索引類型", interpretation: "unique index" },
+  { type: "MongoDB", outline: "執行彙總操作（如分組、統計）的方法", interpretation: "aggregate()" },
+  { type: "MongoDB", outline: "更新時將欄位增加指定數值的修飾符（$inc）", interpretation: "$inc" },
+  { type: "MongoDB", outline: "索引設計與使用原則", interpretation: "為查詢與排序欄位建索引" },
+  { type: "MongoDB", outline: "為排序欄位建立索引", interpretation: "排序欄位索引" },
+  { type: "MongoDB", outline: "複合索引欄位順序（等值查詢在前，排序範圍在後）", interpretation: "等值在前、範圍在後" },
+  { type: "MongoDB", outline: "索引數量與寫入效能關係", interpretation: "索引越多寫入越慢" },
+  { type: "MongoDB", outline: "explain() 分析查詢計劃", interpretation: "explain()" },
+
+  { type: "HBase", outline: "大數據場景資料模型設計原則", interpretation: "Row Key 設計、Column Family 規劃" },
+  { type: "HBase", outline: "Row Key 設計（考量存取模式、負載分佈避免熱點）", interpretation: "Row Key 避免熱點" },
+  { type: "HBase", outline: "Column Family 數量建議", interpretation: "Column Family 不宜過多" },
+  { type: "HBase", outline: "經常一起查詢的欄位放在同一 Column Family", interpretation: "相關欄位同 CF" },
+  { type: "HBase", outline: "版本數設定避免儲存膨脹", interpretation: "控制版本數" },
+
+  // ===== 第四類：K04 =====
+  { type: "變數命名", outline: "符合駝峰式命名規範（camelCase）的命名方式", interpretation: "camelCase" },
+  { type: "變數命名", outline: "物件導向原則", interpretation: "封裝、繼承、多型" },
+  { type: "變數命名", outline: "提倡「組合優於繼承」的原則", interpretation: "組合優於繼承" },
+  { type: "變數命名", outline: "要求「抽象不應依賴於細節，細節應依賴於抽象」的原則（依賴倒置原則）", interpretation: "依賴倒置原則（DIP）" },
+  { type: "變數命名", outline: "封裝的優點（隱藏內部實作細節，降低耦合）", interpretation: "封裝降低耦合" },
+  { type: "變數命名", outline: "指導「將介面設計得越小越好」的原則（介面隔離原則）", interpretation: "介面隔離原則（ISP）" },
+  { type: "變數命名", outline: "表示「has-a」關係的設計方式（組合）", interpretation: "組合（has-a）" },
+
+  { type: "異常處理", outline: "可能導致資源洩漏的做法（不關閉資源，依賴 GC）", interpretation: "不關閉資源依賴 GC" },
+  { type: "異常處理", outline: "finally 區塊的執行特性（無論是否發生異常都會被執行）", interpretation: "finally 必定執行" },
+  { type: "異常處理", outline: "正確的異常捕獲做法（捕獲具體的異常類型）", interpretation: "捕獲具體異常類型" },
+  { type: "異常處理", outline: "自定義異常的繼承選擇（取決於是否需要編譯時檢查）", interpretation: "checked / unchecked" },
+  { type: "異常處理", outline: "拋出異常的正確方式（拋出具體且有意義的異常類型）", interpretation: "拋出具體異常" },
+
+  { type: "函數設計", outline: "被視為「程式碼壞味道」的特徵（參數過多）", interpretation: "參數過多" },
+  { type: "函數設計", outline: "建議函數只做一件事的原則（單一職責原則）", interpretation: "單一職責" },
+  { type: "函數設計", outline: "關於布林參數的正確描述（應避免使用，可拆分為兩個函數）", interpretation: "避免布林參數" },
+  { type: "函數設計", outline: "有助於降低圈複雜度的做法（提取條件判斷為獨立函數）", interpretation: "提取條件為函數" },
+  { type: "函數設計", outline: "建議「不要重複你自己」的原則（DRY）", interpretation: "DRY" },
+
+  { type: "程式碼審查", outline: "常數定義的正確做法（使用 #define 或 final 宣告具名常數）", interpretation: "具名常數" },
+  { type: "程式碼審查", outline: "被認為是多餘的註解類型（重複程式碼內容的註解）", interpretation: "重複內容註解" },
+  { type: "程式碼審查", outline: "全域變數的影響（增加耦合度與維護難度）", interpretation: "全域變數增加耦合" },
+  { type: "程式碼審查", outline: "比較字串的正確方法（使用 equals() 方法）", interpretation: "equals()" },
+
+  { type: "註釋規範", outline: "解釋「為什麼」而非「做了什麼」", interpretation: "註解解釋 Why" },
+  { type: "註釋規範", outline: "複雜邏輯添加說明性註釋", interpretation: "複雜邏輯加註解" },
+  { type: "註釋規範", outline: "註釋與程式碼同步更新", interpretation: "註解同步更新" },
+  { type: "註釋規範", outline: "TODO 註釋標記未來改進", interpretation: "TODO 標記" },
+
+  { type: "物件導向設計原則", outline: "依賴反轉原則（DIP）", interpretation: "DIP" },
+  { type: "物件導向設計原則", outline: "依賴抽象介面", interpretation: "依賴抽象" },
+  { type: "物件導向設計原則", outline: "依賴注入（DI）", interpretation: "DI" },
+  { type: "物件導向設計原則", outline: "工廠模式", interpretation: "Factory Pattern" },
+
+  { type: "圈複雜度", outline: "應關注的面向", interpretation: "避免過深巢狀與過多邏輯運算子" },
+  { type: "圈複雜度", outline: "避免過深巢狀條件判斷（超過 3 層）", interpretation: "巢狀不超過 3 層" },
+  { type: "圈複雜度", outline: "避免過多邏輯運算子", interpretation: "減少邏輯運算子" },
+  { type: "圈複雜度", outline: "複雜邏輯拆分為多個小函數", interpretation: "拆分小函數" },
+  { type: "圈複雜度", outline: "圈複雜度越低越容易測試", interpretation: "低複雜度易測試" },
+
+  { type: "程式碼審查效率", outline: "每次審查程式碼改動量適中", interpretation: "改動量適中" },
+  { type: "程式碼審查效率", outline: "提出具體、有建設性回饋", interpretation: "具體建設性回饋" },
+  { type: "程式碼審查效率", outline: "作者提交前自行檢查並通過單元測試", interpretation: "提交前自檢 + 單元測試" },
+  { type: "程式碼審查效率", outline: "審查重點放在設計邏輯與規範遵循", interpretation: "重點審設計與規範" },
+
+  { type: "技術債處理", outline: "重複程式碼提取為共用函數", interpretation: "提取共用函數" },
+  { type: "技術債處理", outline: "過時第三方函式庫升級", interpretation: "升級第三方庫" },
+  { type: "技術債處理", outline: "架構缺陷記錄與重構", interpretation: "記錄並重構" },
+  { type: "技術債處理", outline: "撰寫單元測試保護關鍵邏輯", interpretation: "單元測試保護" },
+
+  { type: "靜態程式碼分析工具", outline: "在不執行程式碼情況下發現潛在錯誤", interpretation: "靜態分析" },
+  { type: "靜態程式碼分析工具", outline: "檢查程式碼風格違規", interpretation: "風格檢查" },
+  { type: "靜態程式碼分析工具", outline: "配置檢查規則偵測空指針異常、資源洩漏", interpretation: "規則偵測" },
+  { type: "靜態程式碼分析工具", outline: "整合到 CI 流程", interpretation: "CI 整合" },
+
+  { type: "元件設計審查關注點", outline: "單一職責原則", interpretation: "SRP" },
+  { type: "元件設計審查關注點", outline: "props 型別驗證（PropTypes、TypeScript）", interpretation: "PropTypes / TS" },
+  { type: "元件設計審查關注點", outline: "效能問題（render 中定義函數）", interpretation: "避免 render 中定義函數" },
+  { type: "元件設計審查關注點", outline: "元件銷毀時清理副作用（取消訂閱、清除計時器）", interpretation: "清理副作用" },
+
+  // ===== 第五類：K05+K06 =====
+  { type: "邏輯覆蓋法", outline: "要求最嚴格、覆蓋率最高的覆蓋標準（路徑覆蓋）", interpretation: "路徑覆蓋" },
+  { type: "邏輯覆蓋法", outline: "判定覆蓋的正確描述（每個判定的真偽結果至少取一次）", interpretation: "判定覆蓋" },
+  { type: "邏輯覆蓋法", outline: "條件覆蓋的正確描述（每個條件內的所有可能結果至少出現一次）", interpretation: "條件覆蓋" },
+  { type: "邏輯覆蓋法", outline: "可檢查判定中多個條件對結果影響的覆蓋標準（條件組合覆蓋）", interpretation: "條件組合覆蓋" },
+  { type: "邏輯覆蓋法", outline: "迴圈結構可能導致路徑數量爆炸的覆蓋法（路徑覆蓋）", interpretation: "路徑覆蓋" },
+  { type: "邏輯覆蓋法", outline: "語句覆蓋的正確描述（每行程式碼至少執行一次）", interpretation: "語句覆蓋" },
+  { type: "邏輯覆蓋法", outline: "條件判定覆蓋（CDC）", interpretation: "CDC" },
+  { type: "邏輯覆蓋法", outline: "要求每個條件的所有可能取值至少出現一次", interpretation: "條件覆蓋" },
+  { type: "邏輯覆蓋法", outline: "要求每個判定的所有可能結果至少出現一次", interpretation: "判定覆蓋" },
+  { type: "邏輯覆蓋法", outline: "滿足 CDC 一定滿足條件覆蓋", interpretation: "CDC ⇒ 條件覆蓋" },
+  { type: "邏輯覆蓋法", outline: "滿足 CDC 一定滿足判定覆蓋", interpretation: "CDC ⇒ 判定覆蓋" },
+  { type: "邏輯覆蓋法", outline: "修正條件判定覆蓋（MCDC）", interpretation: "MCDC" },
+  { type: "邏輯覆蓋法", outline: "每個條件能獨立影響判定結果", interpretation: "條件獨立影響結果" },
+  { type: "邏輯覆蓋法", outline: "常用於高安全性系統（航空、汽車）", interpretation: "高安全系統" },
+  { type: "邏輯覆蓋法", outline: "能檢測條件短路行為相關錯誤", interpretation: "偵測短路錯誤" },
+  { type: "邏輯覆蓋法", outline: "測試用例數量通常等於條件數量加一", interpretation: "用例數 = 條件數 + 1" },
+  { type: "邏輯覆蓋法", outline: "語句覆蓋", interpretation: "語句覆蓋" },
+  { type: "邏輯覆蓋法", outline: "又稱線性覆蓋", interpretation: "線性覆蓋" },
+  { type: "邏輯覆蓋法", outline: "邏輯覆蓋法中最弱的覆蓋標準", interpretation: "最弱覆蓋" },
+  { type: "邏輯覆蓋法", outline: "無法檢測遺漏路徑", interpretation: "無法檢測遺漏路徑" },
+  { type: "邏輯覆蓋法", outline: "無法判斷判定條件內部錯誤", interpretation: "無法判斷內部錯誤" },
+  { type: "邏輯覆蓋法", outline: "路徑覆蓋", interpretation: "路徑覆蓋" },
+  { type: "邏輯覆蓋法", outline: "測試挑戰與因應策略", interpretation: "迴圈簡化、靜態分析、優先高風險" },
+  { type: "邏輯覆蓋法", outline: "迴圈程式簡化（零次執行、一次執行、多次執行）", interpretation: "迴圈簡化" },
+  { type: "邏輯覆蓋法", outline: "靜態程式碼分析工具計算環路複雜度", interpretation: "靜態分析計算複雜度" },
+  { type: "邏輯覆蓋法", outline: "優先針對高風險核心邏輯", interpretation: "優先高風險" },
+  { type: "邏輯覆蓋法", outline: "覆蓋率工具檢查執行路徑", interpretation: "覆蓋率工具" },
+
+  { type: "JUnit 5", outline: "在所有測試方法執行完畢後運行一次的註解（@AfterAll）", interpretation: "@AfterAll" },
+  { type: "JUnit 5", outline: "檢查預期結果與實際結果不相等的斷言方法", interpretation: "assertNotEquals" },
+  { type: "JUnit 5", outline: "標記測試方法並可自訂顯示名稱的註解（@DisplayName）", interpretation: "@DisplayName" },
+  { type: "JUnit 5", outline: "用於巢狀測試以組織相關測試類別的註解（@Nested）", interpretation: "@Nested" },
+  { type: "JUnit 5", outline: "檢查所有提供的條件均為 true 的斷言方法（assertAll）", interpretation: "assertAll" },
+  { type: "JUnit 5", outline: "斷言庫常用方法", interpretation: "assertEquals、assertNotEquals、assertThrows、assertAll、assertTimeout" },
+  { type: "JUnit 5", outline: "assertEquals、assertNotEquals", interpretation: "比較預期與實際值是否相等 / 不相等" },
+  { type: "JUnit 5", outline: "assertThrows", interpretation: "驗證是否拋出指定異常" },
+  { type: "JUnit 5", outline: "assertAll", interpretation: "組合多個斷言，全部通過才成功" },
+  { type: "JUnit 5", outline: "assertTimeout", interpretation: "驗證執行是否在指定時間內完成" },
+
+  { type: "Spock", outline: "執行測試前準備工作（如初始化資料）的區塊（setup）", interpretation: "setup" },
+  { type: "Spock", outline: "定義資料驅動測試中資料表格的關鍵字（where）", interpretation: "where" },
+  { type: "Spock", outline: "定義測試中預期拋出異常行為的區塊（thrown）", interpretation: "thrown" },
+  { type: "Spock", outline: "結合 when 和 then 功能、適用於簡單測試場景的區塊（expect）", interpretation: "expect" },
+  { type: "Spock", outline: "資料驅動測試", interpretation: "where 區塊定義資料" },
+  { type: "Spock", outline: "where 區塊定義測試資料", interpretation: "where 區塊" },
+  { type: "Spock", outline: "<< 運算子提供資料流", interpretation: "<< 資料流" },
+  { type: "Spock", outline: "@Unroll 註解", interpretation: "@Unroll" },
+  { type: "Spock", outline: "where 區塊中變數組合計算預期結果", interpretation: "變數組合計算" },
+
+  { type: "Mockito", outline: "驗證模擬物件方法被呼叫指定次數的方法", interpretation: "verify(mock, times(n))" },
+  { type: "Mockito", outline: "模擬方法呼叫後連續回傳多個值的方式", interpretation: "thenReturn(a, b, c)" },
+  { type: "Mockito", outline: "驗證模擬物件在測試過程中沒有任何互動發生的方法", interpretation: "verifyNoInteractions(mock)" },
+  { type: "Mockito", outline: "捕獲模擬物件方法呼叫時傳入參數的方法（ArgumentCaptor）", interpretation: "ArgumentCaptor" },
+  { type: "Mockito", outline: "模擬 final 類別或靜態方法的方案（需額外引入 mockito-inline）", interpretation: "mockito-inline" },
+  { type: "Mockito", outline: "驗證 Mock 物件互動行為", interpretation: "verify" },
+  { type: "Mockito", outline: "verify(mock).method()（呼叫一次）", interpretation: "verify(mock).method()" },
+  { type: "Mockito", outline: "verify(mock, times(n)).method()（呼叫 n 次）", interpretation: "verify(mock, times(n))" },
+  { type: "Mockito", outline: "verify(mock, never()).method()（從未被呼叫）", interpretation: "verify(mock, never())" },
+  { type: "Mockito", outline: "verifyNoMoreInteractions(mock)（驗證無後續互動）", interpretation: "verifyNoMoreInteractions" },
+  { type: "Mockito", outline: "doReturn() 與 when().thenReturn() 差異", interpretation: "doReturn 適合 Spy" },
+  { type: "Mockito", outline: "doReturn() 適合 Mock Spy 物件", interpretation: "doReturn 用於 Spy" },
+  { type: "Mockito", outline: "doReturn() 避免呼叫真正實體方法", interpretation: "避免呼叫實體方法" },
+  { type: "Mockito", outline: "void 方法使用 doNothing() 或 doThrow()", interpretation: "doNothing / doThrow" },
+
+  { type: "測試替身", outline: "Mock 物件（驗證互動行為）", interpretation: "Mock" },
+  { type: "測試替身", outline: "Stub 物件（預先定義回應）", interpretation: "Stub" },
+  { type: "測試替身", outline: "Spy 物件（部分模擬、追蹤呼叫）", interpretation: "Spy" },
+  { type: "測試替身", outline: "Fake 物件（簡化可運作實作）", interpretation: "Fake" },
+  { type: "測試替身", outline: "Dummy 物件（填充參數）", interpretation: "Dummy" },
+
+  { type: "邊界值分析", outline: "設計單元測試用例應用原則", interpretation: "測試邊界值" },
+  { type: "邊界值分析", outline: "優先測試有效邊界值兩側（最小值-1、最小值、最大值、最大值+1）", interpretation: "邊界兩側" },
+  { type: "邊界值分析", outline: "等價類劃分法的補充", interpretation: "等價類補充" },
+  { type: "邊界值分析", outline: "集合型態邊界（空集合、單一元素、滿集合）", interpretation: "集合邊界" },
+
+  { type: "防禦技術與安全措施", outline: "SQL Injection 防範：最有效的措施為使用參數化查詢或預處理敘述，而非限制伺服器對外頻寬、定期重啟資料庫服務或僅將資料庫密碼改為複雜字串。", interpretation: "參數化查詢 / 預處理敘述" },
+  { type: "防禦技術與安全措施", outline: "WPA3 安全強化：與 WPA2 相比，WPA3 的主要強化項目為強化個別連線的加密與防暴力破解，並非取消無線網路加密、使用更弱的密碼長度限制，也不是只支援 Windows 作業系統連線。", interpretation: "強化個別連線加密與防暴力破解" },
+  { type: "防禦技術與安全措施", outline: "密碼複雜度原則：合理的要求為密碼需混用大小寫字母、數字與特殊符號，而非密碼只能是數字且長度固定為 4 碼、一律使用空白字元當作密碼，或密碼必須與帳號完全相同。", interpretation: "混用大小寫字母、數字與特殊符號" },
+
+  { type: "攻擊手法與威脅類型", outline: "字典攻擊：此攻擊方式為使用預先建立的密碼詞彙表進行猜測，並非只能用來破解 ZIP 壓縮檔、一定比暴力破解耗費更長時間，也並非無法在網路服務上進行。", interpretation: "使用預先建立的密碼詞彙表進行猜測" },
+  { type: "攻擊手法與威脅類型", outline: "中間人攻擊：攻擊者可在雙方通訊中竊聽或篡改內容，不必然需要在目標電腦植入木馬程式、不僅限於攻擊有線網路（亦可攻擊 Wi-Fi），且此類攻擊並非完全無法被偵測或防範。", interpretation: "在雙方通訊中竊聽或篡改內容" },
+];
+
+// ===== 渲染邏輯 =====
+const STORAGE_KEY = "studyProgressIndex";
+const total = DATA.length;
+
+// 從 localStorage 讀取上次進度（若無效則從第 1 條開始）
+function loadIndex() {
+  try {
+    const saved = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+    if (!isNaN(saved) && saved >= 0 && saved < total) return saved;
+  } catch (e) { /* localStorage 不可用時忽略 */ }
+  return 0;
+}
+let currentIndex = loadIndex();
+
+// 保存進度到 localStorage
+function saveIndex() {
+  try { localStorage.setItem(STORAGE_KEY, String(currentIndex)); } catch (e) { /* 忽略 */ }
+}
+
+const typeEl = document.getElementById("type");
+const outlineEl = document.getElementById("outline");
+const interpEl = document.getElementById("interpretation");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const counterEl = document.getElementById("counter");
+const percentEl = document.getElementById("percent");
+const progressFill = document.getElementById("progressFill");
+const positionEl = document.getElementById("position");
+const resetBtn = document.getElementById("resetBtn");
+
+function render() {
+  const item = DATA[currentIndex];
+  typeEl.textContent = item.type;
+  outlineEl.textContent = item.outline;
+  interpEl.innerHTML = item.interpretation.replace(/`([^`]+)`/g, "<code>$1</code>");
+  counterEl.textContent = `${currentIndex + 1} / ${total}`;
+  const pct = Math.round(((currentIndex + 1) / total) * 100);
+  percentEl.textContent = pct + "%";
+  progressFill.style.width = pct + "%";
+  positionEl.textContent = `第 ${currentIndex + 1} 條，共 ${total} 條`;
+  prevBtn.disabled = currentIndex === 0;
+  nextBtn.disabled = currentIndex === total - 1;
+}
+
+prevBtn.addEventListener("click", () => {
+  if (currentIndex > 0) { currentIndex--; render(); saveIndex(); }
+});
+nextBtn.addEventListener("click", () => {
+  if (currentIndex < total - 1) { currentIndex++; render(); saveIndex(); }
+});
+
+// 重置進度（回到第 1 條）
+resetBtn.addEventListener("click", () => {
+  if (confirm("確定要重置進度，回到第 1 條嗎？")) {
+    currentIndex = 0;
+    render();
+    saveIndex();
+  }
+});
+
+// 鍵盤導航
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowLeft") prevBtn.click();
+  if (e.key === "ArrowRight") nextBtn.click();
+});
+
+render();
+</script>
+</body>
+</html>
