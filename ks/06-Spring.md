@@ -158,3 +158,20 @@ spring:
 填空8：userService.getUserById(id)
 填空9：com.baomidou
 填空10：6379
+
+首次作答：
+1. spring-boot-starter-data-jpa
+2. spring-boot-starter-cache
+3. Username
+4. bearerToken.substring(7, bearerToken.length())
+5. users
+6. 
+7. 
+8. userService.getUserById(id)
+9. 
+10.5432
+
+@CacheEvict
+request.getPassword()
+com.baomidou
+6379

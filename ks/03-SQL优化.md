@@ -127,3 +127,14 @@ NOT IN 子查詢若回傳 NULL，整個條件會變成 UNKNOWN，導致查詢結
 第 10 題
 ARRAY[100, 200, 300]
 說明：= ANY(array) 等效於多個 OR 條件。
+
+1. 順序掃描，順序掃描
+2. 125000.00
+3. 79920000
+4. 使用user_id作為條件連結，但這個字段沒索引
+5. 篩選status <> 'cancelled',user_id 創建索引
+6. o.id as order_id, o.amount as order_amount, o.status as order status
+7. UNION ALL
+8. o.user_id = u.id
+9. 
+10.100,200,300

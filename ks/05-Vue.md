@@ -181,3 +181,15 @@ watch
 填空 10
 ['deleted']
 說明：defineEmits 接收一個陣列，列出元件會觸發的自訂事件名稱。
+
+首次作答
+1. '/api'
+2. 10000
+3. reject(error)
+4. false
+5. data
+6. fetchTodos()
+7. onMounted()
+8. computed
+9. watch
+10.['deleted']

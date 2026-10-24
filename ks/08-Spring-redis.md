@@ -1,6 +1,7 @@
 場景描述：你需要開發一個電商訂單系統的後端核心模組。該模組需要處理用戶下單請求，利用 Redis 分散式鎖防止重複下單，使用 JWT 進行身份驗證，並將訂單數據持久化到 PostgreSQL。請補充以下代碼中的 ____ 處：
 
 1.統一 API 回應格式與錯誤碼定義：
+```java
 @Data
 public class Result<T> {
     private Integer code;
@@ -29,8 +30,11 @@ public enum ErrorCode {
         this.message = message;
     }
 }
+```
 
 2.Spring Security 與 JWT 過濾器配置：
+
+```java
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -59,8 +63,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
-
+```
 3.Redis 分散式鎖與快取整合：
+
+```java
 @Service
 public class OrderService {
     @Autowired
@@ -92,10 +98,11 @@ public class OrderService {
         return orderMapper.selectById(id);
     }
 }
+```
 
 4.JPA/MyBatis-Plus 實體與 Swagger 文件配置：
 
-
+```java
 @Entity
 ____// 9. JPA 註解：指定該實體類對應 PostgreSQL 中的表名
 @Data
@@ -114,7 +121,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2).select().build();
     }
 }
-
+```
 ---
 
 1. setData
@@ -127,3 +134,16 @@ public class SwaggerConfig {
 8. @Cacheable
 9. @Table
 10. @EnableSwagger2WebMvc
+
+首次作答：
+
+1. setData
+2. 未授權
+3. process
+4. None
+5. User
+6. setNx
+7. delete
+8. Cacheable
+9. @Table("orders")
+10. Swagger

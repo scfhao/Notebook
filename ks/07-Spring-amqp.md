@@ -38,6 +38,7 @@ xml
 </dependencies>
 二、Redis 分散式鎖（扣減庫存）
 
+```JAVA
 // service/InventoryService.java
 @Service
 public class InventoryService {
@@ -65,15 +66,18 @@ public class InventoryService {
         return false;
     }
 }
+```
+
 填空4 已給出程式碼，無需填空。改為要求補齊 setIfAbsent 的參數（過期時間）。此處填空4 改為：
-
-
+```Java
 Boolean locked = redisTemplate.opsForValue()
     .setIfAbsent(lockKey, requestId, ______（填空4）);
+```
 需填入 Duration.ofSeconds(5) 或 5, TimeUnit.SECONDS。
 
 三、RabbitMQ 非同步訊息
 
+```Java
 // config/RabbitMQConfig.java
 @Configuration
 public class RabbitMQConfig {
@@ -111,15 +115,18 @@ public class OrderMessageSender {
         );
     }
 }
+```
 四、MinIO 物件儲存（上傳附件）
-yaml
+```yaml
 # application.yml
 minio:
   endpoint: http://localhost:9000
   accessKey: minioadmin
   secretKey: minioadmin
   bucket: order-attachments
+```
 
+```java
 // config/MinioConfig.java
 @Configuration
 public class MinioConfig {
@@ -165,8 +172,9 @@ public class FileUploadService {
         return ______（填空6）;
     }
 }
+```
 五、郵件服務（JavaMail）
-yaml
+```yaml
 # application.yml
 spring:
   mail:
@@ -177,7 +185,9 @@ spring:
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
+```
 
+```java
 // service/EmailService.java
 @Service
 public class EmailService {
@@ -193,7 +203,10 @@ public class EmailService {
         ______（填空7）;
     }
 }
+```
 六、訂單服務整合（完整流程）
+
+```java
 // service/OrderService.java
 @Service
 public class OrderService {
@@ -228,6 +241,7 @@ public class OrderService {
         emailService.sendOrderConfirmation(request.getEmail(), orderId.toString());
     }
 }
+```
 七、額外考點：分散式鎖正確釋放（填空9）與非同步消費（填空10）
 填空9：在 InventoryService 的釋放鎖程式碼中，為何要使用 Lua 腳本驗證 requestId？請簡要說明（限30字）。
 填空10：請寫出 RabbitMQ 消費者監聽佇列 order.queue 的方法簽名（使用 @RabbitListener 註解）。
@@ -265,3 +279,16 @@ public class OrderConsumer {
 說明：Lua 腳本先 GET 再 DEL，確保原子性與安全性。
 填空10：RabbitMQConfig.ORDER_QUEUE（或直接寫 "order.queue"）
 說明：指定監聽的佇列名稱。
+
+首次作答：
+1. spring-boot-starter-data-redis
+2. spring-boot-starter-amqp
+3. spring-boot-starter-mail
+4. Duration.ofSeconds(5)
+5.
+6. minioClient.endpoint + "/" + bucketName + "/" + objectName
+7. mailSender.send(message)
+8. fileUploadService.uploadFile messageSender
+9. 保证是当前订单创建的锁
+10. order.queue
+
