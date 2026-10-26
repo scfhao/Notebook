@@ -38,6 +38,8 @@ Spring Cache（Redis）：將使用者查詢結果快取至 Redis，減少資料
     </dependency>
 </dependencies>
 二、實體與 Repository
+
+```java
 // entity/User.java
 @Entity
 @Table(name = "users")
@@ -57,7 +59,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // 填空3：根據 username 查詢使用者（JPA 方法命名規則）
     Optional<User> findBy______（填空3）(String username);
 }
+```
 三、JWT 工具類（解析 Token）
+```java
 // utils/JwtUtil.java
 @Component
 public class JwtUtil {
@@ -75,7 +79,9 @@ public class JwtUtil {
         return null;
     }
 }
+```
 四、Spring Cache 整合（Redis）
+``` java
 // service/UserService.java
 @Service
 public class UserService {
@@ -94,7 +100,9 @@ public class UserService {
         return userRepository.save(user);
     }
 }
+```
 五、認證控制器
+```java
 // controller/AuthController.java
 @RestController
 @RequestMapping("/api/auth")
@@ -114,7 +122,9 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(token));
     }
 }
+```
 六、使用者控制器
+```java
 // controller/UserController.java
 @RestController
 @RequestMapping("/api/users")
@@ -128,6 +138,7 @@ public class UserController {
         return ______（填空8）;
     }
 }
+```
 七、MyBatis-Plus 替代方案（選答）
 若專案不使用 JPA 而改用 MyBatis-Plus，需要更換依賴。請寫出 MyBatis-Plus 的依賴座標。
 
@@ -175,3 +186,16 @@ spring:
 request.getPassword()
 com.baomidou
 6379
+
+第二次作答
+
+1. spring-boot-starter-data-jpa
+2. spring-boot-starter-cache
+3. Username
+4. bearerToken.substring(7)
+5. users
+* 6. CacheEvit
+7. request.getPassword
+8. userSerice.getUserById(id)
+9. com.baomidou
+* 10. 5673

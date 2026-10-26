@@ -147,3 +147,16 @@ public class SwaggerConfig {
 8. Cacheable
 9. @Table("orders")
 10. Swagger
+
+第二次作答：
+
+1. setData
+2. 未授權
+* 3. authnization
+4. STATELESS
+5. Authentication
+6. setIfAbsent
+7. delete
+8. Cacheable
+9. @Table
+* 10. EnableSwagger2Knife

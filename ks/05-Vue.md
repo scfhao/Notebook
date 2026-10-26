@@ -193,3 +193,15 @@ watch
 8. computed
 9. watch
 10.['deleted']
+
+第二次作答
+
+1. '/api'
+* 2. Time.duration(10)
+3. reject(error)
+4. false
+5. data
+6. fetchTodos()
+7. onMounted
+8. computed
+9. watch

@@ -292,3 +292,15 @@ public class OrderConsumer {
 9. 保证是当前订单创建的锁
 10. order.queue
 
+第二次作答
+
+1. spring-boot-starter-data-redis
+2. spring-boot-starter-amqp
+3. spring-boot-starter-mail
+4. Duration.ofSeconds(5)
+5. "order.created" orderId
+6. minioClient.getObjectUrl(buicketName, objectName)
+7. mailSender.send(message)
+8. fileUploadService.uploadFile messageSender
+9. 防止错误释放了其他线程或者vm上创建的锁
+10.RabbitMQConfig.ORDER_QUEUE
